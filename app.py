@@ -14,21 +14,185 @@ load_dotenv()
 
 
 machine = TocMachine(
-    states=["user", "state1", "state2"],
+    states=["user", "news_initial", "TVBS_choose_category","Apple_choose_category","CNA_choose_category", "Ltn_choose_category","TVBS_choose_social","TVBS_choose_sport","TVBS_choose_world","TVBS_choose_politics","CNA_choose_social","CNA_choose_sport","CNA_choose_world","CNA_choose_politics","Apple_choose_social","Apple_choose_sport","Apple_choose_world","Apple_choose_politics","Ltn_choose_social","Ltn_choose_sport","Ltn_choose_world","Ltn_choose_politics"],
     transitions=[
         {
-            "trigger": "advance",
+            "trigger": "advance_initial",
             "source": "user",
-            "dest": "state1",
-            "conditions": "is_going_to_state1",
+            "dest": "news_initial",
+            "conditions": "is_going_to_news_initial",
         },
         {
-            "trigger": "advance",
-            "source": "user",
-            "dest": "state2",
-            "conditions": "is_going_to_state2",
+            "trigger": "choose_which_media",
+            "source": "news_initial",
+            "dest": "TVBS_choose_category",
+            "conditions": "is_going_to_TVBS_choose_category",
         },
-        {"trigger": "go_back", "source": ["state1", "state2"], "dest": "user"},
+        {
+            "trigger": "choose_which_media",
+            "source": "news_initial",
+            "dest": "Apple_choose_category",
+            "conditions": "is_going_to_Apple_choose_category",
+        },
+        {
+            "trigger": "choose_which_media",
+            "source": "news_initial",
+            "dest": "Ltn_choose_category",
+            "conditions": "is_going_to_Ltn_choose_category",
+        },
+        {
+            "trigger": "choose_which_media",
+            "source": "news_initial",
+            "dest": "CNA_choose_category",
+            "conditions": "is_going_to_CNA_choose_category",
+        },
+
+
+        {
+            "trigger": "choose_which_type",
+            "source": "TVBS_choose_category",
+            "dest": "TVBS_choose_social",
+            "conditions": "is_going_to_TVBS_choose_social",
+        },
+        {
+            "trigger": "choose_which_type",
+            "source": "TVBS_choose_category",
+            "dest": "TVBS_choose_sport",
+            "conditions": "is_going_to_TVBS_choose_sport",
+        },
+        {
+            "trigger": "choose_which_type",
+            "source": "TVBS_choose_category",
+            "dest": "TVBS_choose_world",
+            "conditions": "is_going_to_TVBS_choose_world",
+        },
+        {
+            "trigger": "choose_which_type",
+            "source": "TVBS_choose_category",
+            "dest": "TVBS_choose_politics",
+            "conditions": "is_going_to_TVBS_choose_politics",
+        },
+        {"trigger": "choose_which_type",
+         "source": "TVBS_choose_category",
+         "dest": "news_initial",
+         "conditions": "is_going_to_initial_TVBS",
+        },
+        {"trigger": "choose_which_type",
+         "source": ["TVBS_choose_social","TVBS_choose_sport","TVBS_choose_world","TVBS_choose_politics"],
+         "dest": "TVBS_choose_category",
+         "conditions": "is_going_back_to_TVBS_choose_category",
+        },
+
+
+        {
+            "trigger": "choose_which_type",
+            "source": "CNA_choose_category",
+            "dest": "CNA_choose_social",
+            "conditions": "is_going_to_CNA_choose_social",
+        },
+        {
+            "trigger": "choose_which_type",
+            "source": "CNA_choose_category",
+            "dest": "CNA_choose_sport",
+            "conditions": "is_going_to_CNA_choose_sport",
+        },
+        {
+            "trigger": "choose_which_type",
+            "source": "CNA_choose_category",
+            "dest": "CNA_choose_world",
+            "conditions": "is_going_to_CNA_choose_world",
+        },
+        {
+            "trigger": "choose_which_type",
+            "source": "CNA_choose_category",
+            "dest": "CNA_choose_politics",
+            "conditions": "is_going_to_CNA_choose_politics",
+        },
+        {"trigger": "choose_which_type",
+         "source": "CNA_choose_category",
+         "dest": "news_initial",
+         "conditions": "is_going_to_initial_CNA",
+        },
+        {"trigger": "choose_which_type",
+         "source": ["CNA_choose_social","CNA_choose_sport","CNA_choose_world","CNA_choose_politics"],
+         "dest": "CNA_choose_category",
+         "conditions": "is_going_back_to_CNA_choose_category",
+        },
+
+
+        {
+            "trigger": "choose_which_type",
+            "source": "Apple_choose_category",
+            "dest": "Apple_choose_social",
+            "conditions": "is_going_to_Apple_choose_social",
+        },
+        {
+            "trigger": "choose_which_type",
+            "source": "Apple_choose_category",
+            "dest": "Apple_choose_sport",
+            "conditions": "is_going_to_Apple_choose_sport",
+        },
+        {
+            "trigger": "choose_which_type",
+            "source": "Apple_choose_category",
+            "dest": "Apple_choose_world",
+            "conditions": "is_going_to_Apple_choose_world",
+        },
+        {
+            "trigger": "choose_which_type",
+            "source": "Apple_choose_category",
+            "dest": "Apple_choose_politics",
+            "conditions": "is_going_to_Apple_choose_politics",
+        },
+        {"trigger": "choose_which_type",
+         "source": "Apple_choose_category",
+         "dest": "news_initial",
+         "conditions": "is_going_to_initial_Apple",
+        },
+        {"trigger": "choose_which_type",
+         "source": ["Apple_choose_social","Apple_choose_sport","Apple_choose_world","Apple_choose_politics"],
+         "dest": "Apple_choose_category",
+         "conditions": "is_going_back_to_Apple_choose_category",
+        },
+
+        {
+            "trigger": "choose_which_type",
+            "source": "Ltn_choose_category",
+            "dest": "Ltn_choose_social",
+            "conditions": "is_going_to_Ltn_choose_social",
+        },
+        {
+            "trigger": "choose_which_type",
+            "source": "Ltn_choose_category",
+            "dest": "Ltn_choose_sport",
+            "conditions": "is_going_to_Ltn_choose_sport",
+        },
+        {
+            "trigger": "choose_which_type",
+            "source": "Ltn_choose_category",
+            "dest": "Ltn_choose_world",
+            "conditions": "is_going_to_Ltn_choose_world",
+        },
+        {
+            "trigger": "choose_which_type",
+            "source": "Ltn_choose_category",
+            "dest": "Ltn_choose_politics",
+            "conditions": "is_going_to_Ltn_choose_politics",
+        },
+        {"trigger": "choose_which_type",
+         "source": "Ltn_choose_category",
+         "dest": "news_initial",
+         "conditions": "is_going_to_initial_Ltn",
+        },
+        {"trigger": "choose_which_type",
+         "source": ["Ltn_choose_social","Ltn_choose_sport","Ltn_choose_world","Ltn_choose_politics"],
+         "dest": "Ltn_choose_category",
+         "conditions": "is_going_back_to_Ltn_choose_category",
+        }
+
+
+
+
     ],
     initial="user",
     auto_transitions=False,
@@ -102,9 +266,19 @@ def webhook_handler():
             continue
         print(f"\nFSM STATE: {machine.state}")
         print(f"REQUEST BODY: \n{body}")
-        response = machine.advance(event)
-        if response == False:
-            send_text_message(event.reply_token, "Not Entering any State")
+        if machine.state == "user":
+            judge_advance_initial = machine.advance_initial(event)
+            if judge_advance_initial == False:
+                send_text_message(event.reply_token, "哈囉 想看新聞的話 請輸入看新聞")
+        elif machine.state == "news_initial":
+            judge_choose_media = machine.choose_which_media(event)
+            if judge_choose_media == False:
+                send_text_message(event.reply_token, "格式錯誤 請重新輸入!!")
+        else:
+            judge_choose_which_type = machine.choose_which_type(event)
+            if judge_choose_which_type == False:
+                send_text_message(event.reply_token, "格式錯誤 請重新輸入!!")
+
 
     return "OK"
 
@@ -117,4 +291,5 @@ def show_fsm():
 
 if __name__ == "__main__":
     port = os.environ.get("PORT", 8000)
+
     app.run(host="0.0.0.0", port=port, debug=True)
